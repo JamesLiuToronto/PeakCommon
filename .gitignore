@@ -1,0 +1,3 @@
+# Project exclude paths
+/mylog-spring-boot-starter/target/
+/token-spring-boot-starter/target/
