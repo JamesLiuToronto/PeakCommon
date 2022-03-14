@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.ValidationException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,11 +34,20 @@ public class BusinessExceptionHandler {
     @ExceptionHandler({ValidationException.class})
     @ResponseBody
     //public ResponseEntity<List> processUnmergeException(final MethodArgumentNotValidException ex) {
-    public ResponseEntity<List> processUnmergeException(final AuthorizeException ex){
+    public ResponseEntity<List> processUnmergeException(final ValidationException ex){
 
         String error = ErrorMessage.toLocale(ex.getMessage()) ;
         ex.printStackTrace() ;
         return new ResponseEntity<>((new ArrayList<String>(Arrays.asList(error))), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler({EntityNotFoundException.class})
+    @ResponseBody
+    //public ResponseEntity<List> processUnmergeException(final MethodArgumentNotValidException ex) {
+    public ResponseEntity<List> notFoundException(final EntityNotFoundException ex){
+
+        String error = ErrorMessage.toLocale(ex.getMessage()) ;
+        ex.printStackTrace() ;
+        return new ResponseEntity<>((new ArrayList<String>(Arrays.asList(error))), HttpStatus.NOT_FOUND);
+    }
 }
