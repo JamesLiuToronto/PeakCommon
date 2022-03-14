@@ -48,10 +48,10 @@ public class BusinessExceptionHandler {
 
         final List<String> errors = new ArrayList<String>();
         for (final FieldError error : ex.getBindingResult().getFieldErrors()) {
-            errors.add(error.getField() + ": " + ErrorMessage.toLocale(ex.getMessage()));
+            errors.add(error.getField() + ": " + ErrorMessage.toLocale(error.getDefaultMessage()));
         }
         for (final ObjectError error : ex.getBindingResult().getGlobalErrors()) {
-            errors.add(error.getObjectName() + ": " + ErrorMessage.toLocale(ex.getMessage()));
+            errors.add(error.getObjectName() + ": " + ErrorMessage.toLocale(error.getDefaultMessage()));
         }
 
         String error = String.join(", ", errors);
