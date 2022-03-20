@@ -42,6 +42,15 @@ public class BusinessExceptionHandler {
         return new ResponseEntity<>((new ArrayList<String>(Arrays.asList(error))), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler({TooManyCallsException.class})
+    @ResponseBody
+    public ResponseEntity<List> processTooManyCallsException(final TooManyCallsException ex) {
+
+        String error = ErrorMessage.toLocale(ex.getMessage()) ;
+        ex.printStackTrace() ;
+        return new ResponseEntity<>((new ArrayList<String>(Arrays.asList(error))), HttpStatus.TOO_MANY_REQUESTS);
+    }
+
     @ExceptionHandler({MethodArgumentNotValidException.class})
     @ResponseBody
     public ResponseEntity<List> processUnmergeException(final MethodArgumentNotValidException ex) {
