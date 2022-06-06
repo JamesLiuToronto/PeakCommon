@@ -16,11 +16,13 @@ import java.util.List;
 @Conditional(MethodLoggingCondition.class)
 public class MethodLogger {
 
+
     @Around("@annotation(LogMethodData)")
     @SneakyThrows
     public Object logArroundExec(ProceedingJoinPoint pjp) {
         List<String> list = LogUtility.constructLogMsg(pjp) ;
         log.info("method {} request Parameter {}", list.get(0), list.get(1));
+
         //log.info("method before {}", constructLogMsg(pjp));
         long start = System.currentTimeMillis();
         Object proceed = pjp.proceed();

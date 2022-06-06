@@ -21,6 +21,7 @@ public class AuthConfiguration {
 
     @Bean
     AuthorizeUserAspect authorizeUserAspect(){
+
         return new AuthorizeUserAspect(authProperties.getTokenName());
     }
 
